@@ -2,7 +2,7 @@
 
 A dual-engine deep learning framework for accurate and efficient antimicrobial peptide (AMP) prediction.
 
-![Figure1](./Figure1_model_architecture.png)
+![Figure 1](./figures/fig1_model_architecture.png)
 **Figure 1. Integrated framework for AMP prediction and analysis.**
 - **(A)** Data composition and motif characterization showing distribution in the 'Mix' dataset
 - **(B)** Dual-engine architecture integrating XAMP-T (Transformer-based) and XAMP-E (ESM-2 based)
@@ -17,7 +17,7 @@ A dual-engine deep learning framework for accurate and efficient antimicrobial p
 | XAMP-E | 91.8% |0.9706 | 0.8779 | Accurate | High-confidence prediction |
 | **XAMP (Integrated)** | **96.1%** | **0.9715** | **0.8801** | Balanced | **Recommended** |
 
-![Figure2](./Figure2_benchmark_results.png)
+![Figure 2](./figures/fig2_benchmark_results.png)
 
 **Figure 2. Benchmarking results of XAMP.**
 - **(A-C)** Superior predictive performance on testsets
