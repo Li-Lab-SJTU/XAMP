@@ -33,7 +33,7 @@ The escalating global threat of multidrug-resistant pathogens underscores the ur
 | XAMP-E | 91.8% |0.9706 | 0.8779 | Accurate | High-confidence prediction |
 | **XAMP (Integrated)** | **96.1%** | **0.9715** | **0.8801** | Balanced | **Recommended** |
 
-![Figure 2](./figures/fig2_benchmark_results.png){width="500"}
+<img src="./figures/fig2_benchmark_results.png" alt="Figure 2" width="600"/>
 
 **Figure 2. Benchmarking results of XAMP.**
 - **(A-C)** Superior predictive performance on testsets
