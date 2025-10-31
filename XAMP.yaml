@@ -1,5 +1,7 @@
 name: XAMP
 channels:
+  - pytorch
+  - nvidia
   - defaults
 dependencies:
   - numpy=1.26.4
