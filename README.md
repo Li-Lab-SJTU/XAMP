@@ -23,7 +23,7 @@ pip install -e .
 
 ## 🔧 Usage
 
-#### Python API
+### Python API
 
 ```python
 from XAMP import XAMP
@@ -55,7 +55,7 @@ from XAMP import predict_amp
 result = predict_amp("LLGDFFRKSKEKIGKEFKRIVQRIKDFLRNLVPRTES")
 ```
 
-#### Command Line
+### Command Line
 ```bash
 usage: xamp-predict [-h] [--input INPUT] [--output OUTPUT] 
                     [--model_type {integrated,xamp_t,xamp_e}]
