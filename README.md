@@ -18,7 +18,7 @@ This repository contains the source code for the paper **[A Global Discovery of 
 The escalating global threat of multidrug-resistant pathogens underscores the urgent demand for innovative strategies in antimicrobial peptide (AMP) discovery. Notably, deep-sea-related data resources remain underexplored, despite their potential as valuable sources of novel AMPs. Current AMP prediction methods, however, are limited by dataset biases such as sequence length imbalance between AMPs and non-AMPs, N-terminal methionine artifacts in non-AMPs, and microbial origin specificity. To overcome these constraints, we developed **XAMP**—a **dual-engine predictor** which integrates two complementary architectures: XAMP-E, built on ESM-2 for high-accuracy feature representation, and XAMP-T, built on one-layer Transformer for accelerating large-scale screening. This dual-engine design ensures both robust feature learning and enhanced generalization capability. By constructing length-balanced datasets, removing N-terminal methionine from non-AMPs, and training microbial-specific variants , XAMP achieved a median area under the receiver-operating characteristic curve (AUC) of 0.972, representing an approximately 10% improvement over state-of-the-art predictors. 
 
 <p align="center">
-  <img src="./figures/fig1_model_architecture.png" alt="Figure 1" width="500"/>
+  <img src="./figures/fig1_model_architecture.png" alt="Figure 1" width="600"/>
 </p>
 
 **Figure 1. Integrated framework for AMP prediction and analysis.**
@@ -36,7 +36,7 @@ The escalating global threat of multidrug-resistant pathogens underscores the ur
 | **XAMP (Integrated)** | **96.1%** | **0.9715** | **0.8801** | Balanced | **Recommended** |
 
 <p align="center">
-  <img src="./figures/fig2_benchmark_results.png" alt="Figure 2" width="500"/>
+  <img src="./figures/fig2_benchmark_results.png" alt="Figure 2" width="600"/>
 </p>
 
 **Figure 2. Benchmarking results of XAMP.**
