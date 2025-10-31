@@ -1,0 +1,8 @@
+README.md
+setup.py
+xamp_predictor.egg-info/PKG-INFO
+xamp_predictor.egg-info/SOURCES.txt
+xamp_predictor.egg-info/dependency_links.txt
+xamp_predictor.egg-info/entry_points.txt
+xamp_predictor.egg-info/requires.txt
+xamp_predictor.egg-info/top_level.txt
