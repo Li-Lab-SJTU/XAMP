@@ -13,9 +13,12 @@ A dual-engine deep learning framework for accurate and efficient antimicrobial p
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/Li-Lab-SJTU/XAMP.git
-cd XAMP
-pip install -r requirements.txt
+# Using conda environment
+conda env create -f XAMP.yaml
+conda activate XAMP
+
+# Install package in development mode to enable CLI
+pip install -e .
 ```
 
 ## 🔧 Usage
