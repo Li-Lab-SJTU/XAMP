@@ -1,2 +1,0 @@
-[console_scripts]
-xamp-predict = predict_command:main

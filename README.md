@@ -20,6 +20,9 @@ conda activate XAMP
 
 # Install package in development mode to enable CLI
 pip install -e .
+
+# Unzip pre-trained models
+gunzip models/xamp_*.state_dict.pth.gz
 ```
 
 ## 🔧 Usage
