@@ -1,8 +1,13 @@
 # XAMP: Dual-Engine Antimicrobial Peptide Prediction
 
-A dual-engine deep learning framework for accurate and efficient antimicrobial peptide (AMP) prediction.
+[TOC]
 
-![Figure 1](./figures/fig1_model_architecture.png)
+## 🌏 Overview
+
+The escalating global threat of multidrug-resistant pathogens underscores the urgent demand for innovative strategies in antimicrobial peptide (AMP) discovery. Notably, deep-sea-related data resources remain underexplored, despite their potential as valuable sources of novel AMPs. Current AMP prediction methods, however, are limited by dataset biases such as sequence length imbalance between AMPs and non-AMPs, N-terminal methionine artifacts in non-AMPs, and microbial origin specificity. To overcome these constraints, we developed XAMP—a dual-engine predictor which integrates two complementary architectures: XAMP-E, built on ESM-2 for high-accuracy feature representation, and XAMP-T, built on one-layer Transformer for accelerating large-scale screening. This dual-engine design ensures both robust feature learning and enhanced generalization capability. By constructing length-balanced datasets, removing N-terminal methionine from non-AMPs, and training microbial-specific variants , XAMP achieved a median area under the receiver-operating characteristic curve (AUC) of 0.972, representing an approximately 10% improvement over state-of-the-art predictors. 
+
+<img src="./figures/fig1_model_architecture.png" alt="Figure 1" style="zoom: 50%;" />
+
 **Figure 1. Integrated framework for AMP prediction and analysis.**
 - **(A)** Data composition and motif characterization showing distribution in the 'Mix' dataset
 - **(B)** Dual-engine architecture integrating XAMP-T (Transformer-based) and XAMP-E (ESM-2 based)
@@ -17,7 +22,7 @@ A dual-engine deep learning framework for accurate and efficient antimicrobial p
 | XAMP-E | 91.8% |0.9706 | 0.8779 | Accurate | High-confidence prediction |
 | **XAMP (Integrated)** | **96.1%** | **0.9715** | **0.8801** | Balanced | **Recommended** |
 
-![Figure 2](./figures/fig2_benchmark_results.png)
+<img src="./figures/fig2_benchmark_results.png" alt="Figure 2" style="zoom: 50%;" />
 
 **Figure 2. Benchmarking results of XAMP.**
 - **(A-C)** Superior predictive performance on testsets
