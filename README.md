@@ -2,6 +2,13 @@
 
 A dual-engine deep learning framework for accurate and efficient antimicrobial peptide (AMP) prediction.
 
+![Figure1](./Figure1_model_architecture.png)
+**Figure 1. Integrated framework for AMP prediction and analysis.**
+- **(A)** Data composition and motif characterization showing distribution in the 'Mix' dataset
+- **(B)** Dual-engine architecture integrating XAMP-T (Transformer-based) and XAMP-E (ESM-2 based)
+- **(C)** Data partitioning strategy with 10-fold cross-validation
+
+
 ## 📊 Model Performance
 
 | Model | Precision | AUC | AUPR | Speed | Use Case |
@@ -9,6 +16,13 @@ A dual-engine deep learning framework for accurate and efficient antimicrobial p
 | XAMP-T | 88.1% | 0.9668 | 0.8472 | Fast | Large-scale screening |
 | XAMP-E | 91.8% |0.9706 | 0.8779 | Accurate | High-confidence prediction |
 | **XAMP (Integrated)** | **96.1%** | **0.9715** | **0.8801** | Balanced | **Recommended** |
+
+![Figure2](./Figure2_benchmark_results.png)
+
+**Figure 2. Benchmarking results of XAMP.**
+- **(A-C)** Superior predictive performance on testsets
+- **(D)** Efficient model parameter counts
+- **(E)** Fast inference speed across different dataset sizes
 
 ## 📦 Installation
 
@@ -23,7 +37,7 @@ pip install -e .
 
 ## 🔧 Usage
 
-### Python API
+### 1. Python API
 
 ```python
 from XAMP import XAMP
@@ -55,7 +69,7 @@ from XAMP import predict_amp
 result = predict_amp("LLGDFFRKSKEKIGKEFKRIVQRIKDFLRNLVPRTES")
 ```
 
-### Command Line
+### 2. Command Line
 ```bash
 usage: xamp-predict [-h] [--input INPUT] [--output OUTPUT] 
                     [--model_type {integrated,xamp_t,xamp_e}]
