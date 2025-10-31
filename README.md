@@ -23,7 +23,7 @@ pip install -e .
 
 ## 🔧 Usage
 
-Python API
+#### Python API
 
 ```python
 from XAMP import XAMP
@@ -55,9 +55,11 @@ from XAMP import predict_amp
 result = predict_amp("LLGDFFRKSKEKIGKEFKRIVQRIKDFLRNLVPRTES")
 ```
 
-Command Line
+#### Command Line
 ```bash
-usage: xamp-predict [-h] [--input INPUT] [--output OUTPUT] [--model_type {integrated,xamp_t,xamp_e}] [--device {auto,cpu,cuda}] [--batch_size BATCH_SIZE]
+usage: xamp-predict [-h] [--input INPUT] [--output OUTPUT] 
+                    [--model_type {integrated,xamp_t,xamp_e}]
+                    [--device {auto,cpu,cuda}] [--batch_size BATCH_SIZE]
                     [--threshold THRESHOLD] [--remove_n_met]
 
 XAMP - Antimicrobial Peptide Prediction Tool
