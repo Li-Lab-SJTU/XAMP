@@ -1,5 +1,7 @@
 # XAMP: Dual-Engine Antimicrobial Peptide Prediction
 
+This repository contains the source code for the paper **[A Global Discovery of Antimicrobial Peptides in Deep-Sea Microbiomes Driven by an ESM-2 and Transformer-based Dual-Engine Framework](https://www.biorxiv.org/content/10.1101/2025.11.20.689422)**.
+
 - [🌏 Overview](#---overview)
 - [📊 Model Performance](#---model-performance)
 - [📦 Installation](#---installation)
@@ -135,6 +137,17 @@ Returns DataFrame with:
 - **Batch processing** for large datasets
 - **Flexible model selection** based on needs
 
+## 📚 Citation
 
-**Issues**: https://github.com/Li-Lab-SJTU/XAMP/issues  
+```bibtex
+@article {Chen2025.11.20.689422,
+	title = {A Global Discovery of Antimicrobial Peptides in Deep-Sea Microbiomes Driven by an ESM-2 and Transformer-based Dual-Engine Framework},
+	author = {Chen, Bairun and Mou, Xinyi and Song, Zhuoxuan and Lin, Huaying and Zhang, Yu and Li, Jing},
+	doi = {10.1101/2025.11.20.689422},
+	journal = {bioRxiv},
+	year = {2025}
+}
+```
+
+**Issues**: https://github.com/Li-Lab-SJTU/XAMP/issues 
 **Contact**: jing.li@sjtu.edu.cn
