@@ -275,7 +275,7 @@ class XAMP:
     
     def preprocess_sequences(self, 
                              sequences: List[str], 
-                             remove_n_met: bool = True) -> List[str]:
+                             remove_n_met: bool = False) -> List[str]:
         """
         Preprocess peptide sequences
         
@@ -329,7 +329,7 @@ class XAMP:
                 sequences: Union[str, List[str]], 
                 threshold: float = 0.5,
                 batch_size: int = 32,
-                remove_n_met: bool = True) -> pd.DataFrame:
+                remove_n_met: bool = False) -> pd.DataFrame:
         """
         Predict antimicrobial activity for peptide sequences
         
@@ -453,7 +453,7 @@ class XAMP:
     
     def benchmark_models(self, 
                        sequences: List[str],
-                       remove_n_met: bool = True) -> pd.DataFrame:
+                       remove_n_met: bool = False) -> pd.DataFrame:
         """
         Benchmark both models and compare predictions
         

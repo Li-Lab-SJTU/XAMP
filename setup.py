@@ -13,6 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Li-Lab-SJTU/XAMP",
     packages=find_packages(),
+    py_modules=['XAMP', 'predict_command'],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Science/Research",

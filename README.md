@@ -80,8 +80,8 @@ sequences = [
 results = predictor.predict(
     sequences, 
     batch_size=64, 
-    remove_n_met=True,  # Remove N-terminal methionine
-    threshold=0.5       # Classification threshold
+    remove_n_met=False,  # Do NOT trim N-terminal Met (default; matches paper benchmark)
+    threshold=0.5        # Classification threshold
 )
 
 # Quick prediction function
