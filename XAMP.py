@@ -209,6 +209,7 @@ class XAMP:
     def __init__(self, 
                  model_type: str = 'integrated',
                  device: str = 'auto',
+                 dataset: str = 'mix',
                  model_paths: dict = None):
         """
         Initialize XAMP predictor
@@ -219,16 +220,26 @@ class XAMP:
                 'xamp_t' - Use only XAMP-T (fast)
                 'xamp_e' - Use only XAMP-E (accurate)
             device (str): Device to run inference on. 'auto', 'cuda', or 'cpu'
-            model_paths (dict): Custom paths to model files
+            dataset (str): Which training dataset variant to load. Options:
+                'mix' - Models trained on the Mix dataset (default, for general prediction & Benchmark 1/3)
+                'unknown' - Models trained on the Unknown dataset (for Benchmark 2 reproduction)
+            model_paths (dict): Custom paths to model files. Overrides dataset selection.
         """
         self.model_type = model_type
         self.device = self._setup_device(device)
+        self.dataset = dataset
         
-        # Default model paths (update these with your actual model paths)
-        default_paths = {
-            'xamp_t': 'models/xamp_t.state_dict.pth',
-            'xamp_e': 'models/xamp_e.state_dict.pth'
-        }
+        # Default model paths based on dataset variant
+        if dataset == 'unknown':
+            default_paths = {
+                'xamp_t': 'models/xamp_t.un.state_dict.pth',
+                'xamp_e': 'models/xamp_e.un.state_dict.pth'
+            }
+        else:
+            default_paths = {
+                'xamp_t': 'models/xamp_t.state_dict.pth',
+                'xamp_e': 'models/xamp_e.state_dict.pth'
+            }
 
         self.model_paths = model_paths or default_paths
         self.models = {}
@@ -241,6 +252,38 @@ class XAMP:
             return torch.device("cuda" if torch.cuda.is_available() else "cpu")
         return torch.device(device)
     
+    def _load_torch_state_dict(self, path: str):
+        """
+        Load a PyTorch state_dict from a file path.
+        Automatically handles both uncompressed (.pth) and gzip-compressed (.pth.gz) files.
+        If the given path does not exist, tries appending '.gz'.
+        
+        Args:
+            path: Path to the model file
+            
+        Returns:
+            Loaded state_dict
+        """
+        import os
+        import gzip
+        
+        actual_path = path
+        if not os.path.exists(actual_path):
+            # Try gzip-compressed version
+            gz_path = path + '.gz'
+            if os.path.exists(gz_path):
+                actual_path = gz_path
+            else:
+                raise FileNotFoundError(
+                    f"Model file not found: {path} (also tried {gz_path})"
+                )
+        
+        if actual_path.endswith('.gz'):
+            with gzip.open(actual_path, 'rb') as f:
+                return torch.load(f, map_location=self.device)
+        else:
+            return torch.load(actual_path, map_location=self.device)
+    
     def _load_models(self):
         """Load the selected models using state_dict (recommended approach)"""
         if self.model_type in ['integrated', 'xamp_t']:
@@ -248,13 +291,12 @@ class XAMP:
                 # 创建模型实例
                 model = model_XAMP().to(self.device)
                 # 加载state_dict
-                model.load_state_dict(torch.load(
-                    self.model_paths['xamp_t'], 
-                    map_location=self.device
+                model.load_state_dict(self._load_torch_state_dict(
+                    self.model_paths['xamp_t']
                 ))
                 model.eval()
                 self.models['xamp_t'] = model
-                print("✓ XAMP-T model loaded successfully")
+                print(f"✓ XAMP-T model loaded successfully (dataset: {self.dataset})")
             except Exception as e:
                 print(f"✗ Failed to load XAMP-T model: {e}")
         
@@ -263,13 +305,12 @@ class XAMP:
                 # 创建模型实例
                 model = model_ESM2().to(self.device)
                 # 加载state_dict
-                model.load_state_dict(torch.load(
-                    self.model_paths['xamp_e'], 
-                    map_location=self.device
+                model.load_state_dict(self._load_torch_state_dict(
+                    self.model_paths['xamp_e']
                 ))
                 model.eval()
                 self.models['xamp_e'] = model
-                print("✓ XAMP-E model loaded successfully")
+                print(f"✓ XAMP-E model loaded successfully (dataset: {self.dataset})")
             except Exception as e:
                 print(f"✗ Failed to load XAMP-E model: {e}")
     
@@ -477,6 +518,7 @@ class XAMP:
         """Get information about loaded models"""
         info = {
             'model_type': self.model_type,
+            'dataset': self.dataset,
             'device': str(self.device),
             'loaded_models': list(self.models.keys()),
             'xamp_t_available': 'xamp_t' in self.models,
@@ -492,6 +534,7 @@ class XAMP:
 # Example usage and helper functions
 def predict_amp(sequences: Union[str, List[str]], 
                 model_type: str = 'integrated',
+                dataset: str = 'mix',
                 threshold: float = 0.5,
                 **kwargs) -> pd.DataFrame:
     """
@@ -500,13 +543,14 @@ def predict_amp(sequences: Union[str, List[str]],
     Args:
         sequences: Sequence or list of sequences to predict
         model_type: 'integrated', 'xamp_t', or 'xamp_e'
+        dataset: 'mix' (default) or 'unknown'
         threshold: Classification threshold
         **kwargs: Additional arguments for XAMP
         
     Returns:
         Prediction results
     """
-    predictor = XAMP(model_type=model_type, **kwargs)
+    predictor = XAMP(model_type=model_type, dataset=dataset, **kwargs)
     return predictor.predict(sequences, threshold=threshold)
 
 def load_example_sequences() -> List[str]:

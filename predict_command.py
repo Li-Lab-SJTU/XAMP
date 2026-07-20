@@ -104,6 +104,14 @@ Examples:
     )
     
     parser.add_argument(
+        '--dataset',
+        type=str,
+        default='mix',
+        choices=['mix', 'unknown'],
+        help='Training dataset variant: "mix" for general prediction (default), "unknown" for Benchmark 2 reproduction'
+    )
+    
+    parser.add_argument(
         '--device',
         type=str,
         default='auto',
@@ -138,7 +146,8 @@ Examples:
     print("Initializing XAMP predictor...")
     predictor = XAMP(
         model_type=args.model_type,
-        device=args.device
+        device=args.device,
+        dataset=args.dataset
     )
     
     # Get sequences
