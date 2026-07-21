@@ -209,7 +209,7 @@ class XAMP:
     def __init__(self, 
                  model_type: str = 'integrated',
                  device: str = 'auto',
-                 dataset: str = 'mix',
+                 trainset: str = 'mix',
                  model_paths: dict = None):
         """
         Initialize XAMP predictor
@@ -220,17 +220,17 @@ class XAMP:
                 'xamp_t' - Use only XAMP-T (fast)
                 'xamp_e' - Use only XAMP-E (accurate)
             device (str): Device to run inference on. 'auto', 'cuda', or 'cpu'
-            dataset (str): Which training dataset variant to load. Options:
+            trainset (str): Which training dataset variant to load. Options:
                 'mix' - Models trained on the Mix dataset (default, for general prediction & Benchmark 1/3)
                 'unknown' - Models trained on the Unknown dataset (for Benchmark 2 reproduction)
-            model_paths (dict): Custom paths to model files. Overrides dataset selection.
+            model_paths (dict): Custom paths to model files. Overrides trainset selection.
         """
         self.model_type = model_type
         self.device = self._setup_device(device)
-        self.dataset = dataset
+        self.trainset = trainset
         
-        # Default model paths based on dataset variant
-        if dataset == 'unknown':
+        # Default model paths based on training dataset variant
+        if trainset == 'unknown':
             default_paths = {
                 'xamp_t': 'models/xamp_t.un.state_dict.pth',
                 'xamp_e': 'models/xamp_e.un.state_dict.pth'
@@ -296,7 +296,7 @@ class XAMP:
                 ))
                 model.eval()
                 self.models['xamp_t'] = model
-                print(f"✓ XAMP-T model loaded successfully (dataset: {self.dataset})")
+                print(f"✓ XAMP-T model loaded successfully (trainset: {self.trainset})")
             except Exception as e:
                 print(f"✗ Failed to load XAMP-T model: {e}")
         
@@ -310,7 +310,7 @@ class XAMP:
                 ))
                 model.eval()
                 self.models['xamp_e'] = model
-                print(f"✓ XAMP-E model loaded successfully (dataset: {self.dataset})")
+                print(f"✓ XAMP-E model loaded successfully (trainset: {self.trainset})")
             except Exception as e:
                 print(f"✗ Failed to load XAMP-E model: {e}")
     
@@ -518,7 +518,7 @@ class XAMP:
         """Get information about loaded models"""
         info = {
             'model_type': self.model_type,
-            'dataset': self.dataset,
+            'trainset': self.trainset,
             'device': str(self.device),
             'loaded_models': list(self.models.keys()),
             'xamp_t_available': 'xamp_t' in self.models,
@@ -534,7 +534,7 @@ class XAMP:
 # Example usage and helper functions
 def predict_amp(sequences: Union[str, List[str]], 
                 model_type: str = 'integrated',
-                dataset: str = 'mix',
+                trainset: str = 'mix',
                 threshold: float = 0.5,
                 **kwargs) -> pd.DataFrame:
     """
@@ -543,14 +543,14 @@ def predict_amp(sequences: Union[str, List[str]],
     Args:
         sequences: Sequence or list of sequences to predict
         model_type: 'integrated', 'xamp_t', or 'xamp_e'
-        dataset: 'mix' (default) or 'unknown'
+        trainset: 'mix' (default) or 'unknown'
         threshold: Classification threshold
         **kwargs: Additional arguments for XAMP
         
     Returns:
         Prediction results
     """
-    predictor = XAMP(model_type=model_type, dataset=dataset, **kwargs)
+    predictor = XAMP(model_type=model_type, trainset=trainset, **kwargs)
     return predictor.predict(sequences, threshold=threshold)
 
 def load_example_sequences() -> List[str]:

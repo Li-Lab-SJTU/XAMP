@@ -65,7 +65,7 @@ from XAMP import XAMP
 # Initialize predictor (default: Mix dataset)
 predictor = XAMP(
     model_type='integrated',  # 'integrated', 'xamp_t', or 'xamp_e'
-    dataset='mix',            # 'mix' (default) or 'unknown'
+    trainset='mix',           # 'mix' (default) or 'unknown'
     device='auto'             # 'auto', 'cpu', or 'cuda'
 )
 
@@ -86,7 +86,7 @@ results = predictor.predict(
 )
 
 # Use Unknown-dataset models (for Benchmark 2 reproduction)
-predictor_unknown = XAMP(model_type='integrated', dataset='unknown')
+predictor_unknown = XAMP(model_type='integrated', trainset='unknown')
 
 # Quick prediction function
 from XAMP import predict_amp
@@ -97,7 +97,7 @@ result = predict_amp("LLGDFFRKSKEKIGKEFKRIVQRIKDFLRNLVPRTES")
 ```bash
 usage: xamp-predict [-h] [--input INPUT] [--output OUTPUT] 
                     [--model_type {integrated,xamp_t,xamp_e}]
-                    [--dataset {mix,unknown}]
+                    [--trainset {mix,unknown}]
                     [--device {auto,cpu,cuda}] [--batch_size BATCH_SIZE]
                     [--threshold THRESHOLD] [--remove_n_met]
 
@@ -111,7 +111,7 @@ options:
                         Output file path. If not provided, results will be printed to console.
   --model_type {integrated,xamp_t,xamp_e}
                         Model type to use for prediction (default: integrated)
-  --dataset {mix,unknown}
+  --trainset {mix,unknown}
                         Training dataset variant: "mix" for general prediction (default), "unknown" for Benchmark 2 reproduction
   --device {auto,cpu,cuda}
                         Device to run inference on (default: auto)
@@ -124,7 +124,7 @@ options:
 Examples:
   xamp-predict --input test.fasta --output test.xamp_pred.tsv --remove_n_met
   xamp-predict --input sequences.txt --device cuda --batch_size 128
-  xamp-predict --input benchmark2.fasta --dataset unknown
+  xamp-predict --input benchmark2.fasta --trainset unknown
 ```
 
 ## 📋 Output Format
@@ -155,7 +155,7 @@ Two model variants are provided, trained on different datasets:
 | **Mix** (default) | `xamp_t.state_dict.pth.gz`, `xamp_e.state_dict.pth.gz` | Trained on the Mix dataset; recommended for general AMP prediction and Benchmark 1/3 reproduction |
 | **Unknown** | `xamp_t.un.state_dict.pth.gz`, `xamp_e.un.state_dict.pth.gz` | Trained on the Unknown dataset; for Benchmark 2 reproduction |
 
-Select the variant via the `dataset` parameter (`'mix'` or `'unknown'`) in Python API or `--dataset` flag in CLI.
+Select the variant via the `trainset` parameter (`'mix'` or `'unknown'`) in Python API or `--trainset` flag in CLI.
 
 ## 📚 Citation
 

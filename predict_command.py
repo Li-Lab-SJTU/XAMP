@@ -104,7 +104,7 @@ Examples:
     )
     
     parser.add_argument(
-        '--dataset',
+        '--trainset',
         type=str,
         default='mix',
         choices=['mix', 'unknown'],
@@ -147,7 +147,7 @@ Examples:
     predictor = XAMP(
         model_type=args.model_type,
         device=args.device,
-        dataset=args.dataset
+        trainset=args.trainset
     )
     
     # Get sequences
